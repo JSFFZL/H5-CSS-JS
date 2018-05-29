@@ -1,0 +1,147 @@
+@charset "utf-8";
+// @import "reset.less";
+// @import "public.less";
+
+//Author:@mengqingfan
+
+//引入私有样式表
+//注：我们的基础组件包括：
+//reset.less（重置 + 基础 + 常用）
+//layout.less （布局样式）
+//使用可在其他的less文件中引入这些文件：@import “../reset.less”;即可，分成更多的模块文件，使结构更清晰。
+
+//PS：供内部（前端开发组）查看的代码注释用“//”来注释；提供外部阅读的用“/**/”来注释！
+
+//调用以下方法 .abc{.trangle(),.border}
+
+/*********************双端通用布局CSS***********************/
+
+/*三角形 Trangle*/
+//5个参数：宽度，颜色（上、右、下、左）
+.trangle(@width: 8px, @pram1: transparent, @pram2: transparent, @pram3: transparent, @pram4: transparent){
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: @width;
+    border-color: @pram1 @pram2 @pram3 @pram4;
+}
+/*圆角效果*/
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+/*四角的半径定制*/
+.border-radius-custom (@topleft: 5px, @topright: 5px, @bottomleft: 5px, @bottomright: 5px) {
+    -webkit-border-radius: @topleft @topright @bottomright @bottomleft;
+    -moz-border-radius: @topleft @topright @bottomright @bottomleft;
+    border-radius: @topleft @topright @bottomright @bottomleft;
+}
+/*文本超出显示省略号 Ellipsis*/
+.text-autocut(){
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+}
+/*文本折行 Wrap*/
+/*word-break: break-all; word-wrap:break-word;*/
+.wrap(){
+    text-wrap: wrap;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    word-wrap: break-word;
+}
+/*内阴影 Inner-shadow*/
+//4个参数分别表示：x轴偏移、y轴偏移、模糊长度、透明度（默认颜色是黑色） 
+.inner-shadow(@param1,@param2,@param3,@opacity){
+    -webkit-box-shadow:inset @param1 @param2 @param3 rgba(0, 0, 0, @opacity);
+       -moz-box-shadow:inset @param1 @param2 @param3 rgba(0, 0, 0, @opacity);
+            box-shadow:inset @param1 @param2 @param3 rgba(0, 0, 0, @opacity);
+}
+/*外阴影 box-shadow*/
+.box-shadow(@x: 0px, @y: 0px, @blur: 8px, @alpha: 0.5) {
+    -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+/*颜色渐变 Gradients*/
+//第一个参数指定渐变的方向：top、left，第二第三个参数为起始和终止颜色，兼容IE7-11、chrome、FF等各大浏览器，不支持的取2个颜色的混合色，IE使用滤镜，因为LESS不支持滤镜写法，所以取值时需要加上 ~””。
+.gradient(@origin: top, @startColor, @endColor){
+    background-color:@startColor/2 + @endColor/2;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{startColor}', endColorstr='@{endColor}')";
+    background-image: -webkit-linear-gradient(@origin, @startColor, @endColor);
+    background-image:-moz-linear-gradient(@origin, @startColor, @endColor);
+    background-image: -o-linear-gradient(@origin, @startColor, @endColor);
+    background-image: -ms-linear-gradient(@origin, @startColor, @endColor);
+    background-image: linear-gradient(@origin, @startColor, @endColor);
+}
+/*元素过渡效果 Transition*/
+.transition(@time: 1s, @prop: all, @ease: ease-in-out){
+     -webkit-transition: @prop @time @ease;
+         -moz-transition: @prop @time @ease;
+           -o-transition: @prop @time @ease;
+              transition: @prop @time @ease;
+}
+/*变形 Transform*/
+.transform (@rotate: 90deg, @scale: 1, @skew: 1deg, @translate: 10px) {
+    -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+    transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+}
+
+/* 列布局 @c1 列数 @c2 列宽 @c3 列间距 @c4 边框样式 */
+.column(@c1:3,@c2:310px,@c3:10px,@c4:1px solid #ccc){
+    column-count:@c1;
+    column-width:@c2;
+    column-gap:@c3;
+    column-rule:@c4;
+    -webkit-column-count:@c1;
+    -webkit-column-width:@c2;
+    -webkit-column-gap:@c3;
+    -webkit-column-rule:@c4;
+    -moz-column-count:@c1;
+    -moz-column-width:@c2;
+    -moz-column-gap:@c3;
+    -moz-column-rule:@c4;
+}
+/* 盒子水平/垂直居中 */
+.boxAuto(@w:20%,@h:20%){
+      width: @w;  
+      height: @h;  
+      overflow: auto;  
+      margin: auto;  
+      position: absolute;  
+      top: 0; left: 0; bottom: 0; right: 0; 
+}
+/* 盒子水平/垂直居中 不限高*/
+ .boxHeightAuto(){
+    position: fixed;
+    width: 200px;
+    top:50%;
+    left:50%;
+    margin: 0 auto;
+    text-align: center;
+    border: solid pink 1px;
+    transform:translate(-50%,-50%);
+}
+/*box-sizing*/
+.box-sizing(){
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; 
+    -webkit-box-sizing:border-box; 
+}
+/*flex布局兼容性写法*/
+.flex() {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.flex-1(){
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
